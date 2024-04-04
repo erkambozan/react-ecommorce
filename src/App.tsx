@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setProducts } from './redux/slices/productSlice';
+import ProductList from './components/ProductList';
+import CartIcon from './components/CartIcon';
+import './App.css';
+import {products} from "./data/products";
+
+const App: React.FC = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setProducts(products));
+    }, [dispatch]);
+
+    return (
+        <div className="app-container">
+            <header className="header">
+                <h1 className="header-title">E-Commerce Store</h1>
+                <CartIcon />
+            </header>
+            <div className="product-list-container">
+                <ProductList />
+            </div>
+        </div>
+    );
+};
 
 export default App;
